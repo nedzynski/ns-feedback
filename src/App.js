@@ -7,20 +7,31 @@ export default function App() {
   return (
     <div className="App">
       <Result />
-      <Verify />
     </div>
   );
 }
 
 class Result extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: "failure"
+    };
+  }
+  handleChange=(e)=>{
+    this.setState({
+      result: e.target.value
+    })
+  }
   render() {
     return (
-      <form>
-        <input type="radio" name="result" id="success" value="1" />
+      <div>
+        <input type="radio" name="result" value="success" id="success" onChange={this.handleChange}/>
         <label htmlFor="success">Success</label>
-        <input type="radio" name="result" id="failure" value="0" />
+        <input type="radio" name="result" value="failure" id="failure" onChange={this.handleChange} defaultChecked />
         <label htmlFor="failure">Failure</label>
-      </form>
+        <Verify result={this.state.result} />
+      </div>
     );
   }
 }
