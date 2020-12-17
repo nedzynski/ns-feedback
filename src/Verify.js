@@ -1,6 +1,8 @@
 import React from "react";
 import Sound from "react-sound";
 
+import AudioFeedback from "./AudioFeedback";
+
 const successSound = "https://freesound.org/data/previews/173/173000_2193194-lq.mp3";
 const failureSound = "https://freesound.org/data/previews/342/342756_5260872-lq.mp3"
 
@@ -8,6 +10,7 @@ class Verify extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      audioFeedbackSelector: new AudioFeedback(),
       url: failureSound,
       playStatus: Sound.status.STOPPED
     };
@@ -20,7 +23,7 @@ class Verify extends React.Component {
   verify() {
     console.log(this.props.result);
     this.setState({ 
-      url: this.props.result === "success" ? successSound : failureSound,
+      url: this.props.result === "success" ? successSound : this.state.audioFeedbackSelector.selectFeedback(),
       playStatus: Sound.status.PLAYING 
     });
   }
