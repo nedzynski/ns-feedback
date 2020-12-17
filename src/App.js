@@ -1,13 +1,13 @@
 import React from "react";
 import "./styles.css";
-import AudioFeedback from "./AudioFeedback";
+
+import Verify from "./Verify";
 
 export default function App() {
   return (
     <div className="App">
       <Result />
       <Verify />
-      <AudioFeedback />
     </div>
   );
 }
@@ -17,23 +17,10 @@ class Result extends React.Component {
     return (
       <form>
         <input type="radio" name="result" id="success" value="1" />
-        <label for="success">Success</label>
+        <label htmlFor="success">Success</label>
         <input type="radio" name="result" id="failure" value="0" />
-        <label for="failure">Failure</label>
+        <label htmlFor="failure">Failure</label>
       </form>
-    );
-  }
-}
-
-class Verify extends React.Component {
-  onClick(ev) {
-    // AudioFeedback.play();
-  }
-  render() {
-    return (
-      <button className="verify" onClick={this.onClick}>
-        Verify
-      </button>
     );
   }
 }
