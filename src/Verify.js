@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React from "react";
 import Sound from "react-sound";
 
 import AudioFeedback from "./AudioFeedback";
@@ -18,17 +18,16 @@ class Verify extends React.Component {
   }
 
   play() {
+    this.setState({ playStatus: Sound.status.STOPPED });
     var feedbackPiece = this.state.audioFeedbackSelector.selectFeedback();
     if (feedbackPiece) {
-      this.setState({ 
+      this.setState({
         url: feedbackPiece,
-        playStatus: Sound.status.PLAYING 
-      });  
-    } else {
-      this.setState({ playStatus: Sound.status.STOPPED })
+        playStatus: Sound.status.PLAYING
+      });
     }
   }
-  
+
   verify() {
     console.log(this.props.result);
     var isSuccess = this.props.result === "success";
