@@ -7,6 +7,7 @@ class Verify extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      attempts: 0,
       audioFeedbackSelector: new AudioFeedback(),
       url: "",
       playStatus: Sound.status.STOPPED
@@ -29,11 +30,17 @@ class Verify extends React.Component {
   }
 
   verify() {
-    console.log(this.props.result);
     var isSuccess = this.props.result === "success";
     this.state.audioFeedbackSelector.wipeFeedback();
     this.state.audioFeedbackSelector.queueFeedback(isSuccess);
     this.play();
+    console.log(this.props.result);
+
+    var attemptNo = this.state.attempts + 1;
+    console.log("Attempt number: " + attemptNo);
+    this.setState(() => ({
+      attempts: attemptNo
+    }));
   }
   render() {
     return (

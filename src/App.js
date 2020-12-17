@@ -6,12 +6,12 @@ import Verify from "./Verify";
 export default function App() {
   return (
     <div className="App">
-      <Result />
+      <Challenge />
     </div>
   );
 }
 
-class Result extends React.Component {
+class Challenge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
