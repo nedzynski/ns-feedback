@@ -32,7 +32,7 @@ class Verify extends React.Component {
   verify() {
     console.log(this.props.result);
     var isSuccess = this.props.result === "success";
-    this.state.audioFeedbackSelector.wipeFeedback();
+    this.state.audioFeedbackSelector.wipeFeedbackQueue();
     this.state.audioFeedbackSelector.queueFeedback(isSuccess);
     this.play();
 

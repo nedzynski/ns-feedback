@@ -2,9 +2,6 @@ const successSound =
   "https://freesound.org/data/previews/173/173000_2193194-lq.mp3";
 const failureSound =
   "https://freesound.org/data/previews/342/342756_5260872-lq.mp3";
-
-var lastVoiceFeedbackDate = null;
-
 const standardFailures = [
   "https://freesound.org/data/previews/182/182271_84709-lq.mp3",
   "https://freesound.org/data/previews/33/33276_286533-lq.mp3",
@@ -14,6 +11,9 @@ const standardFailures = [
   "https://freesound.org/data/previews/476/476740_8074450-lq.mp3",
   "https://freesound.org/data/previews/266/266916_4657534-lq.mp3"
 ];
+
+var lastVoiceFeedbackDate = new Date(0);
+var voiceFeedbacksGiven = 0;
 
 class AudioFeedback {
   constructor() {
@@ -29,7 +29,7 @@ class AudioFeedback {
       console.log("WARNING");
     }
   }
-  wipeFeedback() {
+  wipeFeedbackQueue() {
     this.playQueue = [];
   }
   queueFeedback(isSuccess) {
@@ -37,9 +37,12 @@ class AudioFeedback {
       this.playQueue.push(successSound);
     } else {
       this.playQueue.push(failureSound);
-      this.playQueue.push(
-        this.pickRandomVoiceFeedback(this.failureFeedbacks)
-      );
+      var sinceLastVoiceFeedbackGiven = new Date() - lastVoiceFeedbackDate;
+      if (voiceFeedbacksGiven < 3 || sinceLastVoiceFeedbackGiven > 4000) {
+        this.playQueue.push(
+          this.pickRandomVoiceFeedback(this.failureFeedbacks)
+        );
+      }
     }
   }
   pickRandomVoiceFeedback(feedbackArray) {
@@ -49,13 +52,14 @@ class AudioFeedback {
     var f = feedbackArray.splice(
       Math.floor(Math.random() * feedbackArray.length),
       1
-    )[0]
-    
+    )[0];
     console.log("Such feedbacks left: " + feedbackArray.length);
+
+    lastVoiceFeedbackDate = new Date();
+    voiceFeedbacksGiven++;
     return f;
   }
   getFeedback() {
-    lastVoiceFeedbackDate = new Date();
     return this.playQueue.shift();
   }
 }
