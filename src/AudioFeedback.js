@@ -12,8 +12,9 @@ const standardFailures = [
   "https://freesound.org/data/previews/266/266916_4657534-lq.mp3"
 ];
 
-var lastVoiceFeedbackDate = new Date(0);
-var voiceFeedbacksGiven = 0;
+const gaps = [0,0,0,1,2,3,4,5,6,7,8,9];
+var gapIndex = 0;
+var gapCount = 0;
 
 class AudioFeedback {
   constructor() {
@@ -37,12 +38,21 @@ class AudioFeedback {
       this.playQueue.push(successSound);
     } else {
       this.playQueue.push(failureSound);
-      var sinceLastVoiceFeedbackGiven = new Date() - lastVoiceFeedbackDate;
-      if (voiceFeedbacksGiven < 3 || sinceLastVoiceFeedbackGiven > 4000) {
-        this.playQueue.push(
-          this.pickRandomVoiceFeedback(this.failureFeedbacks)
-        );
+      if (this.isVoiceFeedbackRequired()) {
+        console.debug("Adding Voice Feedback.");
+        this.playQueue.push(this.pickRandomVoiceFeedback(this.failureFeedbacks));
       }
+    }
+  }
+  isVoiceFeedbackRequired() {
+    /* Special feedback checking first */
+    if (gapCount === gaps[gapIndex]) {
+      gapIndex++;
+      gapCount = 0;
+      return true;
+    } else {
+      gapCount++;
+      return false;
     }
   }
   pickRandomVoiceFeedback(feedbackArray) {
@@ -55,8 +65,6 @@ class AudioFeedback {
     )[0];
     console.debug("Such feedbacks left: " + feedbackArray.length);
 
-    lastVoiceFeedbackDate = new Date();
-    voiceFeedbacksGiven++;
     return f;
   }
   getFeedback() {
