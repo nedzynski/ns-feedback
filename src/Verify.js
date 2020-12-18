@@ -30,14 +30,14 @@ class Verify extends React.Component {
   }
 
   verify() {
-    console.log(this.props.result);
+    console.debug("Verification result: " + this.props.result);
     var isSuccess = this.props.result === "success";
     this.state.audioFeedbackSelector.wipeFeedbackQueue();
     this.state.audioFeedbackSelector.queueFeedback(isSuccess);
     this.play();
 
     var attemptNo = this.state.attempts + 1;
-    console.log("Attempt number: " + attemptNo);
+    console.debug("Attempt number: " + attemptNo);
     this.setState(() => ({
       attempts: attemptNo
     }));

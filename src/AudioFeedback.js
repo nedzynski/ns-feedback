@@ -26,7 +26,7 @@ class AudioFeedback {
       this.failureFeedbacks = standardFailures.concat([]);
       return this.failureFeedbacks;
     } else {
-      console.log("WARNING");
+      console.warn("WARNING: resetting unspecified feedback array.");
     }
   }
   wipeFeedbackQueue() {
@@ -53,7 +53,7 @@ class AudioFeedback {
       Math.floor(Math.random() * feedbackArray.length),
       1
     )[0];
-    console.log("Such feedbacks left: " + feedbackArray.length);
+    console.debug("Such feedbacks left: " + feedbackArray.length);
 
     lastVoiceFeedbackDate = new Date();
     voiceFeedbacksGiven++;
