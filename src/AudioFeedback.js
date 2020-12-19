@@ -1,7 +1,6 @@
-const successSound =
-  "https://freesound.org/data/previews/173/173000_2193194-lq.mp3";
-const failureSound =
-  "https://freesound.org/data/previews/342/342756_5260872-lq.mp3";
+const successSound = "https://drive.google.com/uc?id=1zcAlo31nPmOlS3Fu1BjbJRJwn1esg-1Z";
+const failureSound = "https://drive.google.com/uc?id=1jq3MWFpScan58Nzp6Nj1v8Axjybq1LKt";
+
 const standardFailures = [
   "https://freesound.org/data/previews/182/182271_84709-lq.mp3",
   "https://freesound.org/data/previews/33/33276_286533-lq.mp3",
