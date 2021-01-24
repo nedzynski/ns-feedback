@@ -2,7 +2,6 @@ import FeedbackArray from "./FeedbackArray";
 
 class SuccessFeedback {
   constructor() {
-    // this.feedbackArrays = [];
     this.sound = "https://drive.google.com/uc?id=1zcAlo31nPmOlS3Fu1BjbJRJwn1esg-1Z"; //"https://freesound.org/data/previews/173/173000_2193194-lq.mp3";
     this.feedbacks = new FeedbackArray([
       "https://freesound.org/data/previews/182/182271_84709-lq.mp3",
