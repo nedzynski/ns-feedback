@@ -34,7 +34,7 @@ class SuccessFeedback {
     res.push(this.sound);
     if (this.isVoiceFeedbackRequired()) {
       res.push(
-        this.feedbacks.pickRandom(this.feedbacks)
+        this.feedbacks.pickRandom()
       );
     }
     return res;
