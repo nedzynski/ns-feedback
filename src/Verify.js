@@ -7,10 +7,10 @@ class Verify extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      attempts: 0,
-      audioFeedbackSelector: new AudioFeedback(),
+      audioFeedback: new AudioFeedback(),
       url: "",
-      playStatus: Sound.status.STOPPED
+      playStatus: Sound.status.STOPPED,
+      // attempts: 0,
     };
   }
 
@@ -20,7 +20,7 @@ class Verify extends React.Component {
 
   play() {
     this.setState({ playStatus: Sound.status.STOPPED });
-    var feedbackPiece = this.state.audioFeedbackSelector.getFeedback();
+    var feedbackPiece = this.state.audioFeedback.getFeedback();
     if (feedbackPiece) {
       this.setState({
         url: feedbackPiece,
@@ -32,19 +32,19 @@ class Verify extends React.Component {
   verify() {
     console.debug("Verification result: " + this.props.result);
     var isSuccess = this.props.result === "success";
-    this.state.audioFeedbackSelector.wipeFeedbackQueue();
-    this.state.audioFeedbackSelector.queueFeedback(isSuccess);
+    this.state.audioFeedback.wipeFeedbackQueue();
+    this.state.audioFeedback.queueFeedback(isSuccess);
     this.play();
 
-    var attemptNo = this.state.attempts + 1;
-    console.debug("Attempt number: " + attemptNo);
-    this.setState(() => ({
-      attempts: attemptNo
-    }));
+    // var attemptNo = this.state.attempts + 1;
+    // console.debug("Attempt number: " + attemptNo);
+    // this.setState(() => ({
+    //   attempts: attemptNo
+    // }));
   }
   render() {
     return (
-      <button className="verify" onClick={() => this.verify()}>
+      <button onClick={() => this.verify()}>
         Verify
         <Sound
           url={this.state.url}
