@@ -22,7 +22,7 @@ class AudioFeedback {
   }
   queueFeedback(isSuccess) {
     if (isSuccess) {
-      var sounds = this.successFeedback.getFeedbackSounds();
+      var sounds = this.successFeedback.getSounds();
       for (let i = 0; i < sounds.length; i++) {
         this.playQueue.push(sounds[i]); 
       }
@@ -30,7 +30,6 @@ class AudioFeedback {
       this.playQueue.push(failureSound);
     }
   }
-
 
   wipeFeedbackQueue() {
     this.playQueue = [];
